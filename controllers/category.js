@@ -10,9 +10,31 @@ const getCategory = async (req, res) => {
     });
 }
 
+const getCategoryById = async (req, res = response) => {
+    const { id } = req.params;
+    try{
+        const category = await Category.findById(id);
+        if (!category){
+            return res.status( 404 ).json({
+                ok: false,
+                msg: 'Category ID not found'
+            });
+        }
+        res.json({
+            ok: true,
+            category: category
+        });
+    }catch(error){
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: CONTACT_ADMINISTRATOR 
+        });
+    }
+}
+
 const createCategory = async (req, res = response) => {
     const { name, description } = req.body;
-    
     try {
         const category = new Category( req.body );
         await category.save();
@@ -80,6 +102,7 @@ const deleteCategory = async (req, res = response) => {
 
 module.exports = {
     getCategory,
+    getCategoryById,
     createCategory,
     updateCategory,
     deleteCategory

@@ -7,6 +7,7 @@ const { check } = require('express-validator');
 const { validateFields } = require('../middlewares/validate_fields');
 const { 
     getCategory,
+    getCategoryById,
     createCategory,
     updateCategory,
     deleteCategory
@@ -16,6 +17,7 @@ const { REQUIRED_NAME, NAME } = require('../constants/general');
 const router = Router();
 
 router.get('/', getCategory);
+router.get('/getCategoryById/:id', getCategoryById);
 router.post(
     '/',
     [
@@ -30,7 +32,8 @@ router.put(
         check(NAME, REQUIRED_NAME).not().isEmpty(),
         validateFields
     ],
-    updateCategory);
+    updateCategory
+);
 
 router.delete('/:id', deleteCategory);
 

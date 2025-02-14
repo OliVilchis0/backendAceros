@@ -25,7 +25,6 @@ const getCategoryById = async (req, res = response) => {
             category: category
         });
     }catch(error){
-        console.log(error);
         res.status(500).json({
             ok: false,
             msg: CONTACT_ADMINISTRATOR 

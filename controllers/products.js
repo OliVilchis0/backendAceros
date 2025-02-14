@@ -19,6 +19,28 @@ const getProducts = async (req, res = response) => {
     });
 }
 
+const getProductById = async (req, res = response) => {
+    const { id } = req.params;
+    try{
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Product ID not found'
+            });
+        }
+        res.json({
+            ok: true,
+            product: product 
+        });
+    }catch(error){
+        res.status(500).json({
+            ok: false,
+            msg: CONTACT_ADMINISTRATOR
+        });
+    }
+}
+
 const createProduct = async (req, res = response) => {
     try {
         const product = new Product( req.body );
@@ -87,6 +109,7 @@ const deleteProduct = async (req, res = response) => {
 
 module.exports = {
     getProducts,
+    getProductById,
     createProduct,
     updateProduct,
     deleteProduct

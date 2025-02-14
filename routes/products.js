@@ -13,6 +13,7 @@ const {
 } = require('../constants/general');
 const { 
     getProducts,
+    getProductById,
     createProduct,
     updateProduct,
     deleteProduct
@@ -21,6 +22,7 @@ const {
 const router = Router();
 
 router.get('/', getProducts);
+router.get('/getProductById/:id', getProductById);
 router.post(
     '/',
     [
